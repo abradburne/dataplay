@@ -8,16 +8,27 @@ class Dataset < ApplicationRecord
     rs.map { |row| row.join "\s" }
   end
 
-  def db_rows_count(db_table)
+  def db_table_name
+    db_tables.first
+  end
+
+  def db_rows_count
     db = open_db
-    stm = db.prepare "SELECT count(*) FROM #{db_table};"
+    stm = db.prepare "SELECT count(*) FROM #{db_table_name};"
     rs = stm.execute
     rs.next.first
   end
 
-  def first_five(db_table)
+  def db_columns
     db = open_db
-    stm = db.prepare "SELECT * FROM #{db_table} LIMIT 5;"
+    stm = db.prepare "PRAGMA table_info('#{db_table_name}') "
+    rs = stm.execute
+    rs.collect {|r| r }
+  end
+
+  def first_five
+    db = open_db
+    stm = db.prepare "SELECT * FROM #{db_table_name} LIMIT 5;"
     rs = stm.execute
     rs.map { |row| row.join "\s" }
   end

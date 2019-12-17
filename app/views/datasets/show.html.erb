@@ -1,16 +1,17 @@
 <h1><%= @dataset.name %></h1>
+<h2>Info</h2>
 <p>
-  Tables: <%= @dataset.db_tables%>
+  Rows: <%= @dataset.db_rows_count %>
 </p>
-<% @dataset.db_tables.each do |db_table| %>
+<h2>Columns</h2>
+<% @dataset.db_columns.each do |col| %>
   <p>
-    Rows (<%= db_table%>): <%= @dataset.db_rows_count(db_table)%>
+    <%= col[1] %> : <%= col[2] %>
   </p>
 <% end %>
-<% @dataset.db_tables.each do |db_table| %>
-  <% @dataset.first_five(db_table).each do |row| %>
-    <p>
-      <%= row %>
-    </p>
-  <% end %>
+<h2>First 5 rows</h2>
+<% @dataset.first_five.each do |row| %>
+  <p>
+    <%= row %>
+  </p>
 <% end %>
