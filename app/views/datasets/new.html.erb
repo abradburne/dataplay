@@ -1,0 +1,5 @@
+<%= form_with model: @dataset do |form| %>
+  <%= form.text_field :name %>
+  <%= form.file_field :datafile %>
+  <%= form.submit "Create" %>
+<% end %>
