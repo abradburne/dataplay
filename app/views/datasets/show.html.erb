@@ -1,4 +1,10 @@
 <h1><%= @dataset.name %></h1>
+
+<% if !@dataset.has_dbfile? && @dataset.datafile.file? %>
+  <p><%= link_to 'Import file', '#' %></p>
+<% end %>
+
+<% if @dataset.has_dbfile? %>
 <h2>Info</h2>
 <p>
   Rows: <%= @dataset.db_rows_count %>
@@ -15,3 +21,5 @@
     <%= row %>
   </p>
 <% end %>
+<% end %>
+

@@ -1,5 +1,10 @@
 class Dataset < ApplicationRecord
-  has_one_attached :datafile
+  has_one :datafile
+  has_one_attached :dbfile
+
+  def has_dbfile?
+    dbfile.attached?
+  end
 
   def db_tables
     db = open_db
@@ -33,12 +38,18 @@ class Dataset < ApplicationRecord
     rs.map { |row| row.join "\s" }
   end
 
+  def import_csv
+
+  end
+
   def open_db
-    SQLite3::Database.open datafile_on_disk
+    if has_dbfile?
+      SQLite3::Database.open datafile_on_disk
     # db.results_as_hash = true
+    end
   end
 
   def datafile_on_disk
-    ActiveStorage::Blob.service.send(:path_for, datafile.key)
+    ActiveStorage::Blob.service.send(:path_for, dbfile.key)
   end
 end

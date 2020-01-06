@@ -1,0 +1,22 @@
+
+
+<div class="flex flex-grow container mx-auto flex justify-center items-center">
+  <div class="bg-blue-lightest px-8 py-6 w-2/3 border border-blue rounded">
+    <h1 class="text-xl text-grey-darkest mb-4"><%= t(".title") %></h1>
+
+    <%= form_for [@dataset, @datafile] do |f| %>
+      <div>
+        <%= f.label :filename, class: "text-grey-dark" %>
+        <%= f.text_field :filename, class: "w-full my-2 border border-grey p-2", autocomplete: "off" %>
+      </div>
+      <div>
+        <%= f.label :attachment, class: "text-grey-dark" %>
+         <%= f.file_field :attachment %>
+      </div>
+      <div class="mt-2">
+        <%= link_to t("general.cancel"), :back, class: "no-underline p-2 text-grey-darker float-left" %>
+        <%= f.submit class: "bg-blue px-4 py-2 text-white rounded float-right" %>
+      </div>
+    <% end %>
+  </div>
+</div>
